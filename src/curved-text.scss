@@ -1,0 +1,23 @@
+@use "sass:math";
+
+$num-letters: 9;
+$angle-span: 100deg;
+$angle-offset: -45deg;
+
+$angle-per-char: math.div($angle-span, $num-letters);
+
+.curved-text {
+  span {
+    font: 70px Neucha, Monaco, MonoSpace;
+    display: inline-block;
+    width: 20px;
+    height: 300px;
+    transform-origin: bottom center;
+  }
+
+  @for $i from 1 through $num-letters {
+    .char#{$i} {
+      transform: rotate($angle-offset + $angle-per-char * ($i - 1));
+    }
+  }
+}
