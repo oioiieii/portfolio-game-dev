@@ -1,23 +1,62 @@
 @use "sass:math";
 
 $num-letters: 9;
-$angle-span: 100deg;
-$angle-offset: -45deg;
+$angle-span: 130deg;
+$angle-offset: -56deg;
 
 $angle-per-char: math.div($angle-span, $num-letters);
 
 .curved-text {
+  width: 640px;
+  height: 800px;
+  overflow: hidden;
+
   span {
-    font: 70px Neucha, Monaco, MonoSpace;
+    font: 90px Neucha, Monaco, MonoSpace;
+    width: 90px;
+    height: 380px;
     display: inline-block;
-    width: 20px;
-    height: 300px;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
     transform-origin: bottom center;
   }
 
+
   @for $i from 1 through $num-letters {
     .char#{$i} {
-      transform: rotate($angle-offset + $angle-per-char * ($i - 1));
+      transform: translate(-50%, -100%) rotate($angle-offset + $angle-per-char * ($i - 1));
+    }
+  }
+}
+
+@media (max-width: 639px) {
+
+  $num-letters: 9;
+  $angle-span: 140deg;
+  $angle-offset: -62deg;
+  $angle-per-char: math.div($angle-span, $num-letters);
+
+  .curved-text {
+    width: 370px;
+    height: 400px;
+    overflow: hidden;
+
+    span {
+      font: 50px Neucha, Monaco, MonoSpace;
+      width: 90px;
+      height: 200px;
+      display: inline-block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform-origin: bottom center;
+    }
+    @for $i from 1 through $num-letters {
+      .char#{$i} {
+        transform: translate(-50%, -100%) rotate($angle-offset + $angle-per-char * ($i - 1));
+      }
     }
   }
 }
