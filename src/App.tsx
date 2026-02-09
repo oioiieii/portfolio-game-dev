@@ -27,6 +27,7 @@ type Work = {
   imageUrl: string;
   link: string;
   category: number;
+  repoLink?: string;
 };
 
 const works = [
@@ -111,19 +112,39 @@ const works = [
     link: "https://play.unity.com/en/games/d5c8bfc7-3c37-4be0-951e-7e3293ecea2f/prototype-5",
     category: 2,
   },
+    {
+        id: 10,
+        title: "Первый Pet-проект",
+        description:
+            "Это мой первый проект, который я начал после прохождения курсов. К сожалению, он остался незавершённым, поэтому если вы хотите оценить качество кода, лучше посмотреть следующий проект :) ",
+        imageUrl: "works/PET_1.png",
+        link: "https://play.unity.com/en/games/a2983509-0187-4fe9-857d-fa4ea6f74d14/personal-project",
+        category: 3,
+        repoLink: "https://github.com/OioiiOiiio/First-pet-project"
+    },
+    {
+        id: 11,
+        title: "Проект с использованием Zenject",
+        description:
+            "На этом проекте я изучал Zenject. Здесь я уделил больше внимания структуре кода: реализовал различные паттерны проектирования и внедрение зависимостей, стараясь придерживаться принципов чистой архитектуры.",
+        imageUrl: "works/PET_2.png",
+        link: "https://play.unity.com/en/games/f458ed07-916f-4d22-a076-2cd3b9e3e67a/zenject-project",
+        category: 3,
+        repoLink: "https://github.com/OioiiOiiio/Prototype_1"
+    },
 ];
 
 const categories = [
   "Unity Essentials Pathway",
   "Unity Creative Core",
   "Unity Junior Programmer",
-  "Свободные проекты",
+  "Pet-проекты",
 ];
 const categoryDescriptions: Record<number, string> = {
-    0: "Проекты, разработанные в рамках базового курса <b>Unity Essentials Pathway</b>, посвящённого практическому освоению инструментов Unity.",
+    0: "Проекты, разработанные в рамках базового курса <b>Unity Essentials Pathway</b>, посвящённого изучению основ и базовых инструментов Unity.",
     1: "Проекты, разработанные в рамках курса <b>Unity Creative Core</b>, которые затрагивают работу с материалами и шейдерами, освещением и постобработкой, анимацией, камерой и другими средствами визуализации.",
     2: "Проекты, разработанные в рамках курса <b>Unity Junior Programmer</b>, посвящённого основам программирования на C# в Unity, включая работу с объектами, компонентами и создание базовых игровых механик.",
-    3: "<b>Свободные проекты</b> — в данном разделе находятся мои собственные работы, которые я создаю в свободное время. <br><br>UPD: Если здесь пока ничего нет, значит, мой перфекционизм не позволяет ещё выложить проекты до тех пор, пока я не доведу их до идеала.",
+    3: "<b>Pet-проекты</b> — это проекты, которые я создаю самостоятельно, вне учебных курсов. В отличие от предыдущих категорий, здесь вы можете просмотреть код каждого проекта."
 };
 
 
@@ -223,8 +244,8 @@ function ProjectsSection({ works }: ProjectsSectionProps) {
         <AnimatePresence mode="wait">
           {filteredWorks.length > 0 &&
             filteredWorks.map(
-              ({ id, title, description, imageUrl, link }, i) => (
-                <motion.div
+                ({ id, title, description, imageUrl, link, repoLink }, i) => (
+                    <motion.div
                   key={id}
                   initial={{ opacity: 0, y: -15 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -246,17 +267,31 @@ function ProjectsSection({ works }: ProjectsSectionProps) {
                     <h3 className="text-2xl font-semibold text-lime-400 mb-2">
                       {i + 1}) {title}
                     </h3>
-                    <p className="text-white mb-4 max-w-xl">
+                    <p className="text-white mb-4 max-w-xl sm:text-lg">
                       {description}
                     </p>
-                    <a
-                      href={link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block bg-lime-500 hover:bg-lime-600 text-white px-5 py-2 rounded-md font-bold transition"
-                    >
-                      Смотреть проект
-                    </a>
+                      <div className={"flex gap-5 max-md:flex-col max-md:justify-items-center"}>
+                        <a
+                          href={link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-block bg-lime-400 hover:bg-lime-600 text-black px-5 py-2 rounded-md font-bold transition"
+                        >
+                          Играть в проект
+                        </a>
+
+                          {repoLink && (
+                              <a
+                                  href={repoLink}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-block bg-transparent border-2 border-lime-400 text-white hover:text-lime-400  px-5 py-2 rounded-md font-bold transition"
+                              >
+                                  Репозиторий
+                              </a>
+                          )}
+                      </div>
+
                   </div>
                 </motion.div>
               )
@@ -292,10 +327,8 @@ function AboutSection() {
                 Я студент 4 курса, старательный, отвественный и достаточно сообразительный.
                 <br/><br/>За годы обучения перепробовал различные направления: создавал сайты, разрабатывал кроссплатформенные приложения, писал API на ASP.NET и работал с нейронными сетями.
                 Игровая разработка всегда привлекала меня, потому что считаю, что это та сфера где полезно быть разносторонним человеком.
-                <br/><br/>По Unity кроме оффициальных крусов читал различную литературу, например изучал по ней UI Toolkit, различные паттерны проектирования, а также читал документацию Zenject.
-                К сожалению, так и не закончил разбиратсья с встроенным механизмом пулов в Zenject и пока не выложил данный проект, чтобы продемонстрировать свои навыки кодинга. 🤓
-                <br/><br/>В последнее время изучаю Blender, так как считаю это полезным и что это может открыть передо мной новые возможности для собственных проектов.
-
+                <br/><br/>По Unity, помимо официальных курсов, изучал различную литературу: UI Toolkit, паттерны проектирования, читал документацию Zenject.
+                <br/><br/>В последнее время переключился на изучение Blender, так как считаю это полезным навыком, который может открыть новые возможности для собственных проектов.
             </p>
         </section>
     );
@@ -340,7 +373,7 @@ function CertificatesSection() {
         <p className="text-xl text-gray-100 italic text-center mb-5">
             ПРИМЕЧАНИЕ: без VPN сертификаты не откроются.
         </p>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-10 justify-items-center mb-14">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-10 justify-items-center ">
         {certificates.map(({ id, title, imageUrl, link }) => (
           <a
             key={id}
@@ -445,7 +478,7 @@ function App() {
               кроссплатформенную разработку на Avalonia, а после — ASP .NET.*/}
 
           {/* Стрелка вниз */}
-        <div className="mt-auto mb-5">
+        <div className="sm:mt-auto mb-5">
           <img
             src={arrow}
             alt="стрелка вниз"
