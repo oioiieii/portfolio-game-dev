@@ -16,3 +16,7 @@ body {
   background-color: #181b17; /* темно-серый, например */
   margin: 0;
 }
+
+.gray-background {
+    background-image: url("/NoiseBackground2.png");
+}
